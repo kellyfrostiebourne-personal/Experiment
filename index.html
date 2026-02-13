@@ -12,9 +12,10 @@
   </header>
   <main>
     <form id="todo-form">
-      <input type="text" id="todo-input" placeholder="What needs doing?" autocomplete="off" aria-label="New task">
+      <input type="text" id="todo-input" placeholder="What needs doing?" autocomplete="off" aria-label="New task" maxlength="500">
       <button type="submit">Add</button>
     </form>
+    <div id="status" class="status" aria-live="polite" aria-atomic="true" role="status"></div>
     <ul id="todo-list" aria-label="Task list"></ul>
   </main>
   <script src="app.js"></script>

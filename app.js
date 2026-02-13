@@ -1,12 +1,53 @@
 const STORAGE_KEY = 'todos';
+const MAX_TASK_LENGTH = 500;
 let tasks = [];
 
+function setStatus(message) {
+  const el = document.getElementById('status');
+  if (!el) return;
+  el.textContent = message;
+  if (message) {
+    setTimeout(() => { el.textContent = ''; }, 4000);
+  }
+}
+
+function isValidTask(t) {
+  return t && typeof t.id === 'string' && typeof t.text === 'string' && typeof t.completed === 'boolean';
+}
+
 function loadTasks() {
-  tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw === null) {
+      tasks = [];
+      return;
+    }
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      tasks = [];
+      setStatus('List reset; saved data was invalid.');
+      return;
+    }
+    tasks = parsed.filter(isValidTask);
+    if (tasks.length !== parsed.length) {
+      setStatus('Some saved items were invalid and were removed.');
+    }
+  } catch (_) {
+    tasks = [];
+    setStatus('List reset; saved data could not be read.');
+  }
 }
 
 function saveTasks() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  } catch (e) {
+    if (e.name === 'QuotaExceededError') {
+      setStatus('Could not save. Storage may be full.');
+    } else {
+      setStatus('Could not save. Storage may be disabled or unavailable.');
+    }
+  }
 }
 
 function renderTasks() {
@@ -20,7 +61,7 @@ function renderTasks() {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = task.completed;
-    checkbox.setAttribute('aria-label', 'Mark complete');
+    checkbox.setAttribute('aria-label', "Mark \"" + (task.text || 'task').replace(/"/g, "'") + "\" complete");
     checkbox.addEventListener('change', () => {
       const t = tasks.find(x => x.id === task.id);
       if (t) t.completed = checkbox.checked;
@@ -36,10 +77,15 @@ function renderTasks() {
     deleteBtn.type = 'button';
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = 'Delete';
+    deleteBtn.setAttribute('aria-label', "Delete \"" + (task.text || 'task').replace(/"/g, "'") + "\"");
     deleteBtn.addEventListener('click', () => {
+      const idx = tasks.findIndex(x => x.id === task.id);
       tasks = tasks.filter(x => x.id !== task.id);
       saveTasks();
       renderTasks();
+      var nextDelete = list.querySelectorAll('.delete-btn')[idx];
+      var nextFocus = nextDelete || document.getElementById('todo-input') || document.querySelector('#todo-form button');
+      if (nextFocus && nextFocus.focus) nextFocus.focus();
     });
 
     li.appendChild(checkbox);
@@ -54,20 +100,31 @@ function init() {
   renderTasks();
 
   const form = document.getElementById('todo-form');
+  const input = document.getElementById('todo-input');
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const input = document.getElementById('todo-input');
     const text = input.value.trim();
-    if (!text) return;
+    if (!text) {
+      setStatus('Please enter a task.');
+      input.focus();
+      return;
+    }
+    if (text.length > MAX_TASK_LENGTH) {
+      setStatus('Task is too long. Shorten it to ' + MAX_TASK_LENGTH + ' characters or fewer.');
+      input.focus();
+      return;
+    }
     tasks.push({
       id: Date.now().toString(),
-      text,
+      text: text.slice(0, MAX_TASK_LENGTH),
       completed: false
     });
     saveTasks();
     renderTasks();
     input.value = '';
     input.focus();
+    setStatus('Task added.');
   });
 }
 
