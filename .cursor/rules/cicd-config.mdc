@@ -1,0 +1,10 @@
+---
+description: Automated builds and deployments, env config, no secrets in repo, feature flags
+alwaysApply: true
+---
+
+# CI/CD and configuration
+
+- **Automated builds and deployments:** Use CI to build, test, and deploy. Builds and deployments should be repeatable and triggered from version control. Avoid manual-only deploys for production.
+- **Env-specific config:** Use environment variables or env-specific config files for per-environment settings. No secrets in repo; inject at deploy or runtime.
+- **Feature flags:** Use feature flags for gradual rollout or kill switches where useful. Document how flags are managed and who can change them.

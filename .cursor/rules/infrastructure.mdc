@@ -1,0 +1,9 @@
+---
+description: IaC for reproducible environments, change control
+globs: ["**/*.tf", "**/Dockerfile*", "**/.github/**/*.yml", "**/ci/**/*.yml"]
+---
+
+# Infrastructure
+
+- **IaC:** Use Infrastructure as Code (e.g. Terraform, CloudFormation, Pulumi) for reproducible environments. Version infra definitions in the repo.
+- **Change control:** Apply infra changes through the same review process as code (PR, review). Avoid ad-hoc manual changes to production infra.

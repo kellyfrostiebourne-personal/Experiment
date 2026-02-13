@@ -1,0 +1,14 @@
+---
+description: Cross-cutting ways of working, ACI, DDD, documentation, inclusive language
+alwaysApply: true
+---
+
+# Project standards
+
+- **Branch and commit:** Use consistent branch names (e.g. feature/, fix/, chore/) and conventional commit messages (e.g. feat:, fix:, docs:). No force-push to shared branches.
+- **ADRs:** Write Architecture Decision Records for significant technical decisions. Store in `docs/adr/` or a documented path. Include context, decision, and consequences.
+- **DDD:** Use bounded context names in folder and module structure. Align code organisation with domain boundaries and ubiquitous language.
+- **ACI:** Treat Availability, Confidentiality, and Integrity as non-negotiable design constraints. Design and code must support them.
+- **Three paths:** Design and implement **happy path**, **exception path**, and **error path**—not only the happy path. See typescript-node, express-api, resilience-recovery, observability, and testing rules.
+- **Inclusive language:** Use inclusive, neutral terminology in code, docs, and commit messages (e.g. allowlist/denylist, primary/replica). Avoid terms that exclude or offend.
+- **Fitness tests:** Before merge, ensure changes satisfy fitness function tests. See the fitness-functions rule.

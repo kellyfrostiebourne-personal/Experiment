@@ -1,0 +1,12 @@
+---
+description: Structured logging, correlation IDs, tracing, what not to log
+globs: "**/*.ts"
+---
+
+# Observability
+
+- **Structured logging:** Use structured logs (JSON or key-value). Include timestamp, level, message, and context. Use consistent field names.
+- **No secrets or PII in logs:** Never log passwords, tokens, or full PII. Redact or omit. Align with data-protection-audit.
+- **Correlation/request IDs:** Propagate a request or correlation ID through the call chain. Include it in logs and error responses for traceability.
+- **Log levels:** Use levels consistently (e.g. error for failures, warn for recoverable issues, info for key events, debug for diagnostics).
+- **All three paths:** Log and trace across happy, exception, and error paths. Ensure the error path is observable for debugging and alerting (errors logged with context, not swallowed).

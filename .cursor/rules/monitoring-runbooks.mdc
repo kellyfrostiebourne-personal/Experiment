@@ -1,0 +1,11 @@
+---
+description: Health checks, SLOs, alerting, runbooks/playbooks
+alwaysApply: true
+---
+
+# Monitoring and runbooks
+
+- **Health checks:** Expose liveness and readiness endpoints (e.g. `/health`, `/ready`). Liveness = process up; readiness = can serve traffic (DB, dependencies OK). Use in orchestrators and load balancers.
+- **SLOs:** Define and track SLOs (e.g. availability, latency p95). Instrument and alert when SLOs are at risk.
+- **Alerting:** Alerts should be actionable. Avoid alert fatigue. Route to the right team or runbook.
+- **Runbooks/playbooks:** Document how to respond to incidents and common operations (e.g. deploy, rollback, scale). Keep runbooks next to alerts or in `docs/runbooks/`.

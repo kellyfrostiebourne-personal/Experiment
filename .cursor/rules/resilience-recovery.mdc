@@ -1,0 +1,12 @@
+---
+description: Fault tolerance, idempotency, circuit breakers, backup/restore, RTO/RPO
+alwaysApply: true
+---
+
+# Resilience and recovery
+
+- **Fault tolerance:** Design for failure. Graceful degradation: when a dependency fails, degrade functionality instead of failing entirely where possible.
+- **Idempotency:** APIs and background jobs that modify state should be idempotent where possible (same request/event applied twice = same result). Use idempotency keys for critical operations.
+- **Circuit breakers / bulkheads:** For external calls (APIs, DB, queues), consider circuit breakers or bulkheads to isolate failures and avoid cascades.
+- **Error path:** Explicitly handle the error path: unexpected failures, timeouts, downstream errors. Fail safely and consistently; return 5xx or equivalent with safe messages; log for debugging. Do not leak internals.
+- **Backup and restore:** Define backup/restore for persistent data. Document RTO/RPO where defined. Test restore periodically.

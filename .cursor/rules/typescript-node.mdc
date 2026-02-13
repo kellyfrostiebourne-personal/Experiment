@@ -1,0 +1,11 @@
+---
+description: Code quality, SOLID, coupling, error handling for TypeScript/Node
+globs: "**/*.ts"
+---
+
+# TypeScript and Node
+
+- **Strict TypeScript:** Use strict mode. Avoid `any`; use `unknown` or proper types. Enable strict null checks.
+- **SOLID and coupling:** Follow SOLID. Prefer small, focused modules. Low coupling between modules; depend on abstractions where it reduces coupling.
+- **Three paths:** Implement **happy path**, **exception path**, and **error path**. Use typed errors (e.g. custom error classes). Do not swallow exceptions; handle or rethrow with context. Explicit handling for expected exceptions (validation, not found) and unexpected errors (log, then fail safely).
+- **Async:** Propagate errors from async code (await in try/catch or .catch()). Use async error boundaries so unhandled rejections are logged and converted to safe responses.

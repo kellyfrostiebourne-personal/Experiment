@@ -1,0 +1,13 @@
+---
+description: No secrets in code, env for config, OWASP alignment, injection/auth, dependency checks
+alwaysApply: true
+---
+
+# Security baseline
+
+- **Secrets:** Never commit secrets, API keys, or credentials to the repo. Use environment variables or a secret manager. Add `.env` and secret files to `.gitignore`.
+- **Config:** Load config from env (e.g. `process.env`) or validated config layer. No hardcoded URLs, keys, or credentials.
+- **OWASP:** Align with OWASP Top 10 where relevant: input validation, parameterized queries (no raw SQL concatenation), output encoding, auth and session handling, secure headers.
+- **Injection:** Validate and sanitise all inputs. Use parameterized queries or ORM; never build SQL/commands from user input via string concatenation.
+- **Auth:** Use established auth patterns (e.g. JWT, session, OAuth). Do not roll your own crypto or auth protocol. Enforce auth on protected routes.
+- **Dependencies:** Run dependency checks (e.g. `npm audit`, Snyk). Fix or document accepted CVEs. See dependency-management rule for CVE process.

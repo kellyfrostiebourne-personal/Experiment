@@ -1,0 +1,10 @@
+---
+description: Components, hooks, accessibility (a11y)
+globs: "**/*.tsx"
+---
+
+# React
+
+- **Components:** Use functional components. Prefer function declarations or const with explicit types for props.
+- **Hooks:** Extract reusable logic into custom hooks. Follow Rules of Hooks (only call at top level, only in React functions). Avoid stale closures in effects and callbacks.
+- **Accessibility:** Use semantic HTML. Ensure keyboard navigation and focus management. Sufficient colour contrast and visible focus indicators. Use ARIA where needed; prefer native semantics. Aim for WCAG 2.x AA where applicable.

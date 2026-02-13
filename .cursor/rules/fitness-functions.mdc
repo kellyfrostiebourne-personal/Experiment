@@ -1,0 +1,11 @@
+---
+description: Fitness tests—what they are, where they live, when to run, satisfy as checkpoint
+alwaysApply: true
+---
+
+# Fitness functions
+
+- **Definition:** Fitness function tests guard architecture and quality invariants (e.g. dependency direction, latency bounds, coupling limits). They fail if the codebase drifts from the intended constraints.
+- **Location:** Keep them in a documented path (e.g. `tests/fitness/`, `e2e/fitness/`). Document in README or CONTRIBUTING where they live and how to run them.
+- **When to run:** Run in CI on every PR/push. Optionally run pre-commit or in a pre-push hook. CI must fail if fitness tests fail.
+- **Checkpoint:** All changes must satisfy fitness functions before merge. Do not merge with failing fitness tests. Fix or update the fitness definition; do not disable tests to pass.

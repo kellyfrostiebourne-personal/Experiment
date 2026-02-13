@@ -1,0 +1,10 @@
+---
+description: Pinned versions, lockfiles, CVE handling and upgrade process
+alwaysApply: true
+---
+
+# Dependency management
+
+- **Pinned versions:** Use lockfiles (e.g. `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`). Commit them. Do not rely on floating versions in production.
+- **CVE process:** Run `npm audit` / equivalent regularly. Fix high/critical CVEs or document accepted risk with expiry. Integrate checks in CI where possible.
+- **New dependencies:** Do not add unvetted dependencies. Review license, maintenance, and security before adding. Prefer well-maintained, widely used packages.

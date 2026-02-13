@@ -1,0 +1,11 @@
+---
+description: Unit/integration/e2e, test layout, fitness functions, 80–100% unit coverage
+globs: ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx"]
+---
+
+# Testing
+
+- **Unit test coverage:** Achieve **80–100% unit test coverage** for production code. Enforce via CI (e.g. coverage threshold or gate). Do not merge with coverage below the project threshold.
+- **Three paths:** Test **happy path**, **exception path**, and **error path**. Write unit tests for each; add integration/e2e tests where appropriate for critical flows.
+- **Layout:** Colocate unit tests with source (e.g. `*.test.ts` next to `*.ts`) or use a dedicated `tests/` structure. Keep test names descriptive (e.g. "returns 400 when input is invalid").
+- **Fitness functions:** All tests must pass. Fitness function tests must be satisfied before merge. See fitness-functions rule.

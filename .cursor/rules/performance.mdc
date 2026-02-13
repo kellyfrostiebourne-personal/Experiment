@@ -1,0 +1,10 @@
+---
+description: Performance budgets, scaling, caching and invalidation
+globs: "**/api/**/*.ts"
+---
+
+# Performance
+
+- **Budgets:** Define performance budgets where applicable (e.g. latency p95, payload size). Enforce or monitor in CI or observability.
+- **Scaling:** Design for horizontal scaling where needed. Prefer stateless services. Avoid N+1 queries; use batching or joins.
+- **Caching:** Use caching where it improves performance. Define invalidation and TTL. Ensure cache consistency with data integrity (e.g. invalidate on write).

@@ -1,0 +1,9 @@
+---
+description: Schema, migrations, PII handling in persistence
+globs: ["**/models/**/*.ts", "**/repositories/**/*.ts", "**/db/**/*.ts", "**/migrations/**/*.ts"]
+---
+
+# Data persistence
+
+- **Schema and migrations:** Use versioned migrations for schema changes. Do not change production schema without a migration. Make migrations reversible where possible.
+- **PII:** Handle PII in persistence per data-protection-audit: minimise, encrypt where required, avoid logging. Use parameterized queries; never log full rows containing PII.

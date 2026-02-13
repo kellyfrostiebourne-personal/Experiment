@@ -1,0 +1,13 @@
+---
+description: REST conventions, versioning, error response shape, no internal leakage
+globs: "**/api/**/*.ts"
+---
+
+# Express API
+
+- **REST and versioning:** Use REST conventions. Version APIs (e.g. `/v1/...`). Consistent resource naming and HTTP methods.
+- **Happy path:** Return 2xx for success (200 OK, 201 Created, 204 No Content as appropriate). Return a consistent success payload shape.
+- **Exception path:** Return 4xx for client errors: 400 validation, 404 not found, 409 conflict, 429 rate limit. Include clear, actionable payloads (e.g. `{ error: { code, message } }`).
+- **Error path:** Return 5xx for server errors. Use safe, non-internal messages for clients. Do not leak stack traces, paths, or internal details (confidentiality). Log full details server-side.
+- **Validation:** Validate input (body, query, params). Return 400 with clear validation errors when invalid.
+- **Status codes:** Use correct HTTP status codes. Do not return 200 for errors.

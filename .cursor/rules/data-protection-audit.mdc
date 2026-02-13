@@ -1,0 +1,11 @@
+---
+description: PII/sensitive data, retention, auditability, GDPR where applicable
+alwaysApply: true
+---
+
+# Data protection and audit
+
+- **PII and sensitive data:** Minimise collection and storage. Encrypt at rest and in transit where required. Do not log PII or secrets (see observability rule).
+- **Retention:** Define and implement retention and deletion for personal and sensitive data. Document in policy or ADR.
+- **Auditability:** Record who did what and when for sensitive or regulated operations. Use immutable audit logs where compliance requires it. Include correlation/request IDs for traceability.
+- **GDPR/compliance:** Where applicable, support data subject rights (access, rectification, erasure, portability), lawful basis, and consent. Document compliance approach.
