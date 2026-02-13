@@ -1,5 +1,4 @@
-const STORAGE_KEY = 'todos';
-const MAX_TASK_LENGTH = 500;
+import { MAX_TASK_LENGTH, parseTasks, saveTasksToStorage, STORAGE_KEY } from './todoLogic.js';
 let tasks = [];
 
 function setStatus(message) {
@@ -11,36 +10,16 @@ function setStatus(message) {
   }
 }
 
-function isValidTask(t) {
-  return t && typeof t.id === 'string' && typeof t.text === 'string' && typeof t.completed === 'boolean';
-}
-
 function loadTasks() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw === null) {
-      tasks = [];
-      return;
-    }
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) {
-      tasks = [];
-      setStatus('List reset; saved data was invalid.');
-      return;
-    }
-    tasks = parsed.filter(isValidTask);
-    if (tasks.length !== parsed.length) {
-      setStatus('Some saved items were invalid and were removed.');
-    }
-  } catch (_) {
-    tasks = [];
-    setStatus('List reset; saved data could not be read.');
-  }
+  const raw = localStorage.getItem(STORAGE_KEY);
+  const { tasks: loaded, statusKey } = parseTasks(raw ?? null);
+  tasks = loaded;
+  if (statusKey) setStatus(statusKey);
 }
 
 function saveTasks() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    saveTasksToStorage(tasks, { setItem: (k, v) => localStorage.setItem(k, v) });
   } catch (e) {
     if (e.name === 'QuotaExceededError') {
       setStatus('Could not save. Storage may be full.');
